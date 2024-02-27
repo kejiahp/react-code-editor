@@ -4,7 +4,7 @@ This code editor was done as an attempt to a Full Stack Engineer Assessment task
 
 Belows a link to the hosted editor:
 
-- [Editor demo](https://vercel.com)
+- [Editor demo](https://react-code-editor-production.up.railway.app)
 
 ## Setting up the environment
 
