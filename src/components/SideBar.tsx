@@ -1,4 +1,4 @@
-import { File, FilePlus } from "lucide-react";
+import { File, FilePlus, Trash2 } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import secureLocalStorage from "react-secure-storage";
 
@@ -7,6 +7,7 @@ import { CodeEditorContext } from "../context/CodeEditor.context";
 import { LANGUAGE_EXTENSIONS } from "../constants/snippets-n-lang";
 import { TabContext } from "../context/Tab.context";
 import { secure_store_keys } from "../constants/secure-store-keys";
+import { cn } from "../lib/utils";
 
 const MINWIDTH = 180;
 const MAXWIDTH = 300;
@@ -14,9 +15,10 @@ const DEFAULTWIDTH = 200;
 
 export default function SideBar() {
   const [width, setWidth] = useState<number>(DEFAULTWIDTH);
-  const { setCreateModalIsOpen } = useContext(ModalContext);
+  const modalContextProps = useContext(ModalContext);
   const { files } = useContext(CodeEditorContext);
-  const { openFiles, setOpenFiles, setSelectedEditor } = useContext(TabContext);
+  const { openFiles, setOpenFiles, setSelectedEditor, selectedEditor } =
+    useContext(TabContext);
 
   const resize = (e: MouseEvent) => {
     if (e.clientX >= MINWIDTH && e.clientX <= MAXWIDTH) {
@@ -39,7 +41,12 @@ export default function SideBar() {
   }, [width]);
 
   const createFileHandler = () => {
-    setCreateModalIsOpen(true);
+    modalContextProps.setCreateModalIsOpen(true);
+  };
+
+  const initFileDelete = (name: string) => {
+    modalContextProps.setFileToDelete(name);
+    modalContextProps.setDeleteModalIsOpen(true);
   };
 
   const addTab = (name: string) => {
@@ -77,20 +84,30 @@ export default function SideBar() {
             <button
               type="button"
               onClick={createFileHandler}
-              className="relative text-xs flex items-center gap-1 hover:bg-gray-500 p-1 rounded-xl transition-[background] ease-in-out duration-200 after:content-['New_File'] after:absolute after:-bottom-7 after:-left-10 after:bg-gray-500 after:p-1 after:opacity-0 after:hover:opacity-100 after:z-10 after:delay-200"
+              className="relative text-xs flex items-center gap-1 hover:bg-gray-500 p-1 rounded-xl transition-[background] ease-in-out duration-200 after:content-['New_File'] after:absolute after:top-0 after:-left-16 after:bg-gray-500 after:p-1 after:opacity-0 after:hover:opacity-100 after:z-10 after:delay-200"
             >
-              <FilePlus size={15} />
+              <FilePlus size={18} />
             </button>
           </li>
           {Object.keys(files).map((item, index) => (
-            <li key={index}>
+            <li key={index} className="relative">
               <button
                 onClick={() => addTab(item)}
-                className="py-1 px-2 w-full text-left rounded-md text-sm bg-gray-800 hover:bg-gray-500 my-1 whitespace-nowrap overflow-ellipsis overflow-hidden"
+                className={cn(
+                  "py-1 px-2 w-full text-left rounded-md text-sm hover:bg-gray-800 whitespace-nowrap overflow-ellipsis overflow-hidden border border-transparent my-[2px]",
+                  item === selectedEditor && "bg-gray-800 border-gray-300"
+                )}
               >
                 <File size={15} className="inline mr-1" />
                 {item}
                 {LANGUAGE_EXTENSIONS[files[item].language]}
+              </button>
+
+              <button
+                onClick={() => initFileDelete(item)}
+                className="absolute top-0 bottom-0 right-2 my-auto"
+              >
+                <Trash2 size={14} className="text-red-500" />
               </button>
             </li>
           ))}

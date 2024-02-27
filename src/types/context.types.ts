@@ -18,6 +18,10 @@ export type CodeEditorContextType = {
 export type CreateModalContextType = {
   createModalIsOpen: boolean;
   setCreateModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteModalIsOpen: boolean;
+  setDeleteModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  fileToDelete: string;
+  setFileToDelete: React.Dispatch<React.SetStateAction<string>>;
 };
 export type TabFilesType = {
   name: string;
