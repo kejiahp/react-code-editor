@@ -14,7 +14,7 @@ export default function EmptyState() {
         </li>
         <li>
           Autosaving of files occurs every 10 seconds on the condition that as a
-          single file is open.
+          single file must be open.
         </li>
         <li>
           Select the file icon besides &ldquo;Explorer&rdquo; to create a file.
