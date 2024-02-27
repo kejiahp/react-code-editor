@@ -38,9 +38,9 @@ export default function CreateFileModal() {
       return;
     }
 
-    const isNotUniqueName = files.some((item) => item.name === name);
+    const fileWithNameExist = files[name];
 
-    if (isNotUniqueName) {
+    if (fileWithNameExist) {
       alert("A file with this name already exists");
     } else {
       const result = {
@@ -51,8 +51,8 @@ export default function CreateFileModal() {
       };
 
       setFiles((oldState) => {
-        const newState = [...oldState];
-        newState.push(result);
+        const newState = { ...oldState };
+        newState[name] = result;
 
         secureLocalStorage.setItem(
           secure_store_keys.files,

@@ -9,7 +9,7 @@ import { secure_store_keys } from "../constants/secure-store-keys";
 
 export const CodeEditorContext = createContext<CodeEditorContextType>({
   editorRef: null,
-  files: [],
+  files: {},
   setFiles: () => alert("setFiles is undefined"),
 });
 
@@ -20,7 +20,8 @@ export function CodeEditorProvider({ children }: PropsWithChildren) {
   ) as string;
   const parsedSecureFiles = JSON.parse(secureFiles);
   const initFiles = parsedSecureFiles ? parsedSecureFiles : [];
-  const [files, setFiles] = useState<Array<CodeEditorFilesType>>(initFiles);
+  const [files, setFiles] =
+    useState<Record<string, CodeEditorFilesType>>(initFiles);
 
   return (
     <CodeEditorContext.Provider

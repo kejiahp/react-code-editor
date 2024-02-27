@@ -82,15 +82,15 @@ export default function SideBar() {
               <FilePlus size={15} />
             </button>
           </li>
-          {files.map((item, index) => (
+          {Object.keys(files).map((item, index) => (
             <li key={index}>
               <button
-                onClick={() => addTab(item.name)}
+                onClick={() => addTab(item)}
                 className="py-1 px-2 w-full text-left rounded-md text-sm bg-gray-800 hover:bg-gray-500 my-1 whitespace-nowrap overflow-ellipsis overflow-hidden"
               >
                 <File size={15} className="inline mr-1" />
-                {item.name}
-                {LANGUAGE_EXTENSIONS[item.language]}
+                {item}
+                {LANGUAGE_EXTENSIONS[files[item].language]}
               </button>
             </li>
           ))}

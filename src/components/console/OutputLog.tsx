@@ -14,7 +14,7 @@ export default function OutputLog() {
   const { selectedEditor } = useContext(TabContext);
   const { files, editorRef } = useContext(CodeEditorContext);
 
-  const mainFile = files.find((item) => item.name === selectedEditor);
+  const mainFile = files[selectedEditor];
 
   const runCode = async () => {
     if (!mainFile) {

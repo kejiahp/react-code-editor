@@ -9,8 +9,10 @@ export type CodeEditorFilesType = {
 
 export type CodeEditorContextType = {
   editorRef: React.MutableRefObject<null> | null;
-  files: CodeEditorFilesType[];
-  setFiles: React.Dispatch<React.SetStateAction<CodeEditorFilesType[]>>;
+  files: Record<string, CodeEditorFilesType>;
+  setFiles: React.Dispatch<
+    React.SetStateAction<Record<string, CodeEditorFilesType>>
+  >;
 };
 
 export type CreateModalContextType = {

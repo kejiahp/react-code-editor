@@ -7,7 +7,6 @@ import { secure_store_keys } from "../constants/secure-store-keys";
 export default function TabBar() {
   const { openFiles, setOpenFiles, selectedEditor, setSelectedEditor } =
     useContext(TabContext);
-  console.log(selectedEditor);
 
   const removeFromTab = (name: string) => {
     const values = openFiles.filter((item) => item.name !== name);
