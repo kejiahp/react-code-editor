@@ -1,5 +1,3 @@
-import { SetStateAction } from "react";
-
 export type CodeEditorFilesType = {
   name: string;
   value: string;
@@ -29,7 +27,7 @@ export type TabFilesType = {
 
 export type TabContextType = {
   openFiles: TabFilesType[];
-  setOpenFiles: React.Dispatch<SetStateAction<TabFilesType[]>>;
+  setOpenFiles: React.Dispatch<React.SetStateAction<TabFilesType[]>>;
   selectedEditor: string;
   setSelectedEditor: React.Dispatch<React.SetStateAction<string>>;
 };

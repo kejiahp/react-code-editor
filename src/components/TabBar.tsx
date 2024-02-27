@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { TabContext } from "../context/Tab.context";
 import secureLocalStorage from "react-secure-storage";
 import { secure_store_keys } from "../constants/secure-store-keys";
+import { cn } from "../lib/utils";
 
 export default function TabBar() {
   const { openFiles, setOpenFiles, selectedEditor, setSelectedEditor } =
@@ -36,9 +37,10 @@ export default function TabBar() {
       {openFiles.map((item, index) => (
         <div
           key={index}
-          className={`flex items-center ${
-            item.name === selectedEditor ? "bg-gray-500" : ""
-          }`}
+          className={cn(
+            "flex items-center",
+            item.name === selectedEditor && "bg-gray-500"
+          )}
         >
           <button
             onClick={() => setSelectedEditor(item.name)}

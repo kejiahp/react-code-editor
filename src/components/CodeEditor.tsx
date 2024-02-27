@@ -4,13 +4,14 @@ import { CodeEditorContext } from "../context/CodeEditor.context";
 import { TabContext } from "../context/Tab.context";
 import { secure_store_keys } from "../constants/secure-store-keys";
 import secureLocalStorage from "react-secure-storage";
+import EmptyState from "./EmptyState";
 
 export default function CodeEditor() {
   const { editorRef, files, setFiles } = useContext(CodeEditorContext);
   const { selectedEditor, openFiles } = useContext(TabContext);
 
   const onMountHandler: OnMount = (editor) => {
-    //@ts-expect-error inital null value of useRef used in the editor is not recommended
+    //@ts-expect-error Type 'IStandaloneCodeEditor' is not assignable to type 'null'.
     editorRef.current = editor;
     editor.focus();
   };
@@ -49,7 +50,8 @@ export default function CodeEditor() {
   });
 
   if (!mainFile) {
-    return <h1 className="font-bold">Nothing to see here</h1>;
+    return <EmptyState />;
+    // return <h1 className="font-bold">Nothing to see here</h1>;
   }
 
   return (

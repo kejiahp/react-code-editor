@@ -20,7 +20,7 @@ export default function OutputLog() {
     if (!mainFile) {
       return;
     }
-    //@ts-expect-error getValue does not exist on ref
+    //@ts-expect-error Property 'getValue' does not exist on type 'never'.
     const sourceCode = editorRef?.current?.getValue();
     if (!sourceCode) return;
     try {
