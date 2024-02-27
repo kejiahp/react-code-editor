@@ -1,4 +1,6 @@
 import { PropsWithChildren, createContext, useState } from "react";
+import secureLocalStorage from "react-secure-storage";
+
 import {
   CodeEditorFilesType,
   CodeEditorContextType,
@@ -10,7 +12,10 @@ export const CodeEditorContext = createContext<CodeEditorContextType>({
 });
 
 export function CodeEditorProvider({ children }: PropsWithChildren) {
-  const [files, setFiles] = useState<Array<CodeEditorFilesType>>([]);
+  const secureFiles = secureLocalStorage.getItem("files") as string;
+  const parsedSecureFiles = JSON.parse(secureFiles);
+  const initFiles = parsedSecureFiles ? parsedSecureFiles : [];
+  const [files, setFiles] = useState<Array<CodeEditorFilesType>>(initFiles);
 
   return (
     <CodeEditorContext.Provider

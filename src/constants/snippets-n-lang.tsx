@@ -1,4 +1,4 @@
-export const LANGUAGE_VERSIONS = {
+export const LANGUAGE_VERSIONS: Record<string, string> = {
   javascript: "18.15.0",
   typescript: "5.0.3",
   python: "3.10.0",
@@ -15,4 +15,13 @@ export const CODE_SNIPPETS = {
   csharp:
     'using System;\n\nnamespace HelloWorld\n{\n\tclass Hello { \n\t\tstatic void Main(string[] args) {\n\t\t\tConsole.WriteLine("Hello World in C#");\n\t\t}\n\t}\n}\n',
   php: "<?php\n\n$name = 'Alex';\necho $name;\n",
+};
+
+export const LANGUAGE_EXTENSIONS: Record<string, string> = {
+  javascript: ".js",
+  typescript: ".ts",
+  python: ".py",
+  java: ".java",
+  csharp: ".cs",
+  php: ".php",
 };
