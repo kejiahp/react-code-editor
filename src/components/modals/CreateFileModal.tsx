@@ -30,7 +30,10 @@ export default function CreateFileModal() {
     setName("");
   };
 
-  const onSubmitHandler = () => {
+  const onSubmitHandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
     if (name.length <= 2) {
       return;
     }
@@ -62,7 +65,7 @@ export default function CreateFileModal() {
         return newState;
       });
 
-      alert("new file created");
+      // alert("new file created");
       closeModal();
     }
   };

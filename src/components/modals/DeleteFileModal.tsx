@@ -21,7 +21,11 @@ export default function DeleteFileModal() {
     return;
   }
 
-  const onDeleteHandler = () => {
+  const onDeleteHandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+
     if (!modalContextProps.fileToDelete) {
       alert("no file was selected for deletion");
     } else {

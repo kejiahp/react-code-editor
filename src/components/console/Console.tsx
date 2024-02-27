@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import OutputLog from "./OutputLog";
 
-const MINHEIGHT = 150;
+const MINHEIGHT = 100;
 const DEFAULTHEIGHT = 200;
 
 export default function Console() {

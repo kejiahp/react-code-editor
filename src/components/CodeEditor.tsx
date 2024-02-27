@@ -34,6 +34,7 @@ export default function CodeEditor() {
     });
   };
 
+  //Auto save files every 10 secs
   useEffect(() => {
     const timer = setInterval(() => {
       if (mainFile && openFiles.length > 0) {
@@ -41,9 +42,8 @@ export default function CodeEditor() {
           secure_store_keys.files,
           JSON.stringify(files)
         );
-        console.log("saved");
       }
-    }, 5000);
+    }, 10000);
 
     // clearing interval
     return () => clearInterval(timer);
@@ -51,7 +51,6 @@ export default function CodeEditor() {
 
   if (!mainFile) {
     return <EmptyState />;
-    // return <h1 className="font-bold">Nothing to see here</h1>;
   }
 
   return (
