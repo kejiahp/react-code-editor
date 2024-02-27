@@ -2,6 +2,7 @@ import { PropsWithChildren, createContext, useState } from "react";
 import secureLocalStorage from "react-secure-storage";
 
 import { TabContextType, TabFilesType } from "../types/context.types";
+import { secure_store_keys } from "../constants/secure-store-keys";
 
 export const TabContext = createContext<TabContextType>({
   openFiles: [],
@@ -11,7 +12,9 @@ export const TabContext = createContext<TabContextType>({
 });
 
 export function TabProvider({ children }: PropsWithChildren) {
-  const secureTabs = secureLocalStorage.getItem("tabs") as string;
+  const secureTabs = secureLocalStorage.getItem(
+    secure_store_keys.tabs
+  ) as string;
   const parsedSecureTabs = JSON.parse(secureTabs);
   const initTabs = parsedSecureTabs ? parsedSecureTabs : [];
   const [openFiles, setOpenFiles] = useState<TabFilesType[]>(initTabs);

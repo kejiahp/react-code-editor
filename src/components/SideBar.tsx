@@ -1,8 +1,12 @@
 import { File, FilePlus } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
+import secureLocalStorage from "react-secure-storage";
+
 import { ModalContext } from "../context/Modal.context";
 import { CodeEditorContext } from "../context/CodeEditor.context";
 import { LANGUAGE_EXTENSIONS } from "../constants/snippets-n-lang";
+import { TabContext } from "../context/Tab.context";
+import { secure_store_keys } from "../constants/secure-store-keys";
 
 const MINWIDTH = 180;
 const MAXWIDTH = 300;
@@ -12,6 +16,7 @@ export default function SideBar() {
   const [width, setWidth] = useState<number>(DEFAULTWIDTH);
   const { setCreateModalIsOpen } = useContext(ModalContext);
   const { files } = useContext(CodeEditorContext);
+  const { openFiles, setOpenFiles, setSelectedEditor } = useContext(TabContext);
 
   const resize = (e: MouseEvent) => {
     if (e.clientX >= MINWIDTH && e.clientX <= MAXWIDTH) {
@@ -37,6 +42,27 @@ export default function SideBar() {
     setCreateModalIsOpen(true);
   };
 
+  const addTab = (name: string) => {
+    const isFileInTab = openFiles.find((item) => item.name === name);
+    setSelectedEditor(name);
+
+    if (isFileInTab) {
+      return;
+    } else {
+      setOpenFiles((oldState) => {
+        const newState = [...oldState];
+        newState.push({ name: name });
+
+        secureLocalStorage.setItem(
+          secure_store_keys.tabs,
+          JSON.stringify(newState)
+        );
+
+        return newState;
+      });
+    }
+  };
+
   return (
     <nav
       style={{
@@ -58,7 +84,10 @@ export default function SideBar() {
           </li>
           {files.map((item, index) => (
             <li key={index}>
-              <button className="py-1 px-2 w-full text-left rounded-md text-sm bg-gray-800 hover:bg-gray-500 my-1 whitespace-nowrap overflow-ellipsis overflow-hidden">
+              <button
+                onClick={() => addTab(item.name)}
+                className="py-1 px-2 w-full text-left rounded-md text-sm bg-gray-800 hover:bg-gray-500 my-1 whitespace-nowrap overflow-ellipsis overflow-hidden"
+              >
                 <File size={15} className="inline mr-1" />
                 {item.name}
                 {LANGUAGE_EXTENSIONS[item.language]}

@@ -14,5 +14,6 @@ export async function executeCode(
       },
     ],
   });
+  console.log(res.data);
   return res.data;
 }

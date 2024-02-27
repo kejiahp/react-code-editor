@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import OutputLog from "./OutputLog";
+
 const MINHEIGHT = 150;
 const DEFAULTHEIGHT = 200;
 
@@ -43,10 +45,7 @@ export default function Console() {
         id="console-resize"
         className="h-2 bg-gray-300 w-full cursor-row-resize"
       />
-      <h1 className="ml-2 border-b border-gray-300">Terminal</h1>
-      <div className="p-2 pb-10 h-full overflow-auto">
-        <h1>Console LOG</h1>
-      </div>
+      <OutputLog />
     </footer>
   );
 }

@@ -5,11 +5,15 @@ import Backdrop from "../ui/Backdrop";
 import { Input } from "../ui/Input";
 import { Label } from "../ui/Label";
 import { Select } from "../ui/Select";
-import { LANGUAGE_VERSIONS } from "../../constants/snippets-n-lang";
+import {
+  CODE_SNIPPETS,
+  LANGUAGE_VERSIONS,
+} from "../../constants/snippets-n-lang";
 import { useContext, useState } from "react";
 import { cn } from "../../lib/utils";
 import { CodeEditorContext } from "../../context/CodeEditor.context";
 import { ModalContext } from "../../context/Modal.context";
+import { secure_store_keys } from "../../constants/secure-store-keys";
 
 export default function CreateFileModal() {
   const [name, setName] = useState<string>("");
@@ -41,7 +45,7 @@ export default function CreateFileModal() {
     } else {
       const result = {
         name: name,
-        value: "",
+        value: CODE_SNIPPETS[language] || "// some comment",
         language: language,
         version: LANGUAGE_VERSIONS[language],
       };
@@ -50,7 +54,10 @@ export default function CreateFileModal() {
         const newState = [...oldState];
         newState.push(result);
 
-        secureLocalStorage.setItem("files", JSON.stringify(newState));
+        secureLocalStorage.setItem(
+          secure_store_keys.files,
+          JSON.stringify(newState)
+        );
 
         return newState;
       });
